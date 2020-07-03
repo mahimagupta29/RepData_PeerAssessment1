@@ -4,19 +4,97 @@ output:
   html_document:
     keep_md: true
 ---
+## Introduction
 
+This assignment makes use of data from a personal activity monitoring device. This device collects data at 5 minute intervals through out the day. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.
+
+This assignment consists of 5 task.    
+They are as follows:
+```{r,echo=TRUE}
+#Load Libraries
+library(ggplot2)
+library(dplyr)
+```
 
 ## Loading and preprocessing the data
+Downloand & unzip file for processing. Read and load CSV file into a Data Frame.
 
+```{r, echo=TRUE}
+# download file from web
+if(!file.exists("./data")){dir.create("./data")}
+fileUrl <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+download.file(fileUrl,destfile="./data/activity.zip",method="curl")
+# unzip data and read 
+unzip(zipfile="./data/activity.zip",exdir="./data")
+activity <- read.csv("./data/activity.csv")
+activity$date <- as.Date(activity$date)
+head(activity)
+```
 
 
 ## What is mean total number of steps taken per day?
+## What is mean total number of steps taken per day?
 
+For this part of the assignment, we ignore the missing values in the dataset.
+
+1. Calculate the total number of steps taken per day.  
+(For readability, only ‘steps taken’ for first 10 days are displayed)
+
+```{r, echo=TRUE}
+stepsPerDay <- activity %>%
+        group_by(date) %>%
+        summarize(sumsteps = sum(steps, na.rm = TRUE)) 
+#Display first 10 rows of data
+head(stepsPerDay,10)
+```
+
+-----------------------------------------
+2. Make a histogram of the total number of steps taken each day.
+
+```{r, echo=TRUE}
+hist(stepsPerDay$sumsteps, main = "Histogram of Daily Steps", breaks = 20,
+     col="cyan", xlab="Steps", ylim = c(0,12))
+```
+------------------------------------------
+
+3. Calculate and report the mean and median of the total number of steps taken per day.
+
+```{r, echo=TRUE}
+mean <- round(mean(stepsPerDay$sumsteps),digits = 2)
+median <- round(median(stepsPerDay$sumsteps),digits = 2)
+
+print(paste("The mean is: ", mean))
+print(paste("The median is: ", median))
+```
 
 
 ## What is the average daily activity pattern?
+1. Make a time series plot (type = "l") of the 5-minute interval (x-axis) and the         average number of steps taken, averaged across all days (y-axis).
 
+```{r, echo=TRUE}
+stepsPerInterval <- activity %>%
+        group_by(interval) %>%
+        summarize(meansteps = mean(steps, na.rm = TRUE)) 
+#Display first 10 rows of data
+head(stepsPerInterval,10)
+```
+-------------------------------------------
 
+```{r, echo=TRUE}
+plot(stepsPerInterval$meansteps ~ stepsPerInterval$interval,
+     col="blue", 
+     type="l",
+     xlab = "5 Minute Intervals",
+     ylab = "Average Number of Steps",
+     main = "Steps By Time Interval")
+```
+----------------------------------------------
+2. Which 5-minute interval, on average across all the days in the dataset, contains      the maximum number of steps?
+
+```{r, echo=TRUE}
+print(paste("Interval containing the most steps on average:",stepsPerInterval$interval[which.max(stepsPerInterval$meansteps)]))
+print(paste("Average steps for that interval:",round(max(stepsPerInterval$meansteps),digits=2)))
+```
 
 ## Imputing missing values
 
