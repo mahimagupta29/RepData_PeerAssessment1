@@ -102,8 +102,10 @@ print(paste("The mean is: ", mean))
 print(paste("The median is: ", median))
 ```
 #### OUTPUT
-```[1] "The mean is:  9354.23"  
-[1] "The median is:  10395"```   
+``` 
+[1] "The mean is:  9354.23"  
+[1] "The median is:  10395" 
+```   
 
 
 ## What is the average daily activity pattern?
@@ -116,6 +118,23 @@ stepsPerInterval <- activity %>%
         summarize(meansteps = mean(steps, na.rm = TRUE)) 
 #Display first 10 rows of data
 head(stepsPerInterval,10)
+```
+
+#### OUTPUT
+```
+interval  meansteps
+<int>      <dbl>
+0	        1.7169811		
+5	        0.3396226		
+10       	0.1320755		
+15       	0.1509434		
+20       	0.0754717		
+25       	2.0943396		
+30       	0.5283019		
+35       	0.8679245		
+40	       0.0000000		
+45       	1.4716981		
+1-10 of 10 rows
 ```
 
 
@@ -135,8 +154,12 @@ plot(stepsPerInterval$meansteps ~ stepsPerInterval$interval,
 print(paste("Interval containing the most steps on average:",stepsPerInterval$interval[which.max(stepsPerInterval$meansteps)]))
 print(paste("Average steps for that interval:",round(max(stepsPerInterval$meansteps),digits=2)))
 ```
-`[1] "Interval containing the most steps on average: 835"           
- [1] "Average steps for that interval: 206.17"`  
+
+#### OUTPUT
+```
+[1] "Interval containing the most steps on average: 835"           
+[1] "Average steps for that interval: 206.17"
+```  
 
 
 
@@ -147,7 +170,8 @@ print(paste("Average steps for that interval:",round(max(stepsPerInterval$meanst
 ```{r, echo=TRUE}
 print(paste("The total number of rows with NA is: ",sum(is.na(activity$steps))))
 ```
-`[1] "The total number of rows with NA is:  2304"`  
+#### OUTPUT
+```[1] "The total number of rows with NA is:  2304"```  
 
 
 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the            mean/median for that day, or the mean for that 5-minute interval, etc.
@@ -175,6 +199,22 @@ for (i in 1:nrow(activity)){
 #Display first 10 rows of data
 head(meandata,10)
 ```
+#### OUTPUT
+```
+     steps     date    interval
+     <dbl>    <date>    <int>
+1	1.7169811	2012-10-01	0
+2 0.3396226	2012-10-01	5
+3	0.1320755	2012-10-01	10
+4	0.1509434	2012-10-01	15
+5	0.0754717	2012-10-01	20
+6	2.0943396	2012-10-01	25
+7	0.5283019	2012-10-01	30
+8	0.8679245	2012-10-01	35
+9	0.0000000	2012-10-01	40
+10	1.4716981	2012-10-01	45
+1-10 of 10 rows
+```
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values       differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
@@ -184,9 +224,35 @@ stepsPerDay <- meandata %>%
         summarize(sumsteps = sum(steps, na.rm = TRUE)) 
 head(stepsPerDay,10)
 ```
+#### OUTPUT
+```
+date        sumsteps
+<date>       <dbl>
+2012-10-01	10766.19		
+2012-10-02	126.00		
+2012-10-03	11352.00		
+2012-10-04	12116.00		
+2012-10-05	13294.00		
+2012-10-06	15420.00		
+2012-10-07	11015.00		
+2012-10-08	10766.19		
+2012-10-09	12811.00		
+2012-10-10	9900.00		
+1-10 of 10 rows
+```
 
 ```{r,echo=TRUE}
 summary(stepsPerDay)
+```
+#### OUTPUT
+```
+      date               sumsteps    
+ Min.   :2012-10-01   Min.   :   41  
+ 1st Qu.:2012-10-16   1st Qu.: 9819  
+ Median :2012-10-31   Median :10766  
+ Mean   :2012-10-31   Mean   :10766  
+ 3rd Qu.:2012-11-15   3rd Qu.:12811  
+ Max.   :2012-11-30   Max.   :21194  
 ```
 
 Making Histogram
@@ -202,6 +268,7 @@ medianPostNA <- round(median(stepsPerDay$sumsteps), digits = 2)
 
 print(paste("The mean is: ", mean(meanPostNA)))
 ```
+#### OUTPUT
 `[1] "The mean is:  10766.19"`    
 
 Once logic is applied to imput missing values it allows for all detail records to be included increasing both the mean and median. The mean increases from 9354.23 to 10766.19. It is important to note that NA values in the first part of the project were ignored (na.rm = TRUE). Once averages were applied to the missing values the overall mean increased.
@@ -211,13 +278,14 @@ NACompare <- data.frame(mean = c(mean,meanPostNA),median = c(median,medianPostNA
 rownames(NACompare) <- c("Pre NA Transformation", "Post NA Transformation")
 print(NACompare)
 ```
-
+#### OUTPUT
+```
                                   mean     |      median
                                   <dbl>    |      <dbl>
-Pre NA Transformation   	9354.23    |    10395.00     
-Post NA Transformation	        10766.19   |	10766.19
+Pre NA Transformation    |       	9354.23  |    10395.00     
+Post NA Transformation	  |     10766.19    |	10766.19
 2 rows
-
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
