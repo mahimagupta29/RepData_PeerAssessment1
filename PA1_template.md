@@ -38,16 +38,6 @@ activity <- read.csv("./data/activity.csv")
 activity$date <- as.Date(activity$date)
 head(activity)
 ```
-       steps      date       interval
-       <int>     <date>        <int>
-1	NA	2012-10-01	0	
-2	NA	2012-10-01	5	
-3	NA	2012-10-01	10	
-4	NA	2012-10-01	15	
-5	NA	2012-10-01	20	
-6	NA	2012-10-01	25	
-6 rows
-
 
 ## What is mean total number of steps taken per day?
 
@@ -63,21 +53,6 @@ stepsPerDay <- activity %>%
 #Display first 10 rows of data
 head(stepsPerDay,10)
 ```
-
-date           sumsteps
-<date>          <int>
-2012-10-01	0			
-2012-10-02	126			
-2012-10-03	11352			
-2012-10-04	12116			
-2012-10-05	13294			
-2012-10-06	15420			
-2012-10-07	11015			
-2012-10-08	0			
-2012-10-09	12811			
-2012-10-10	9900			
-1-10 of 10 rows
-
 
 2. Make a histogram of the total number of steps taken each day.
 
@@ -101,7 +76,7 @@ print(paste("The median is: ", median))
 
 ## What is the average daily activity pattern?
 
-1. Make a time series plot (type = "l") of the 5-minute interval (x-axis) and the         average number of steps taken, averaged across all days (y-axis).
+1. Make a time series plot (type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).
 
 ```{r, echo=TRUE}
 stepsPerInterval <- activity %>%
@@ -121,7 +96,7 @@ plot(stepsPerInterval$meansteps ~ stepsPerInterval$interval,
      main = "Steps By Time Interval")
 ```
 
-2. Which 5-minute interval, on average across all the days in the dataset, contains      the maximum number of steps?
+2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 ```{r, echo=TRUE}
 print(paste("Interval containing the most steps on average:",stepsPerInterval$interval[which.max(stepsPerInterval$meansteps)]))
@@ -138,7 +113,7 @@ print(paste("Average steps for that interval:",round(max(stepsPerInterval$meanst
 print(paste("The total number of rows with NA is: ",sum(is.na(activity$steps))))
 ```
 
-2. Devise a strategy for filling in all of the missing values in the dataset. The        strategy does not need to be sophisticated. For example, you could use the            mean/median for that day, or the mean for that 5-minute interval, etc.
+2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the            mean/median for that day, or the mean for that 5-minute interval, etc.
 
 I will use the mean for that 5 -minute interval to replace all the missing values in the dataset. At the end, I will check if all the NAs have been replaced
 NA Strategy - To solve for the missing NA values the average for the associated interval will be used. The average was built in a prior step and is readily available: First, loop through all records of a copy of the ‘activity’ data. Then, look for records containing NA values. Finally, transform the ‘steps’ value based on matching the interval in the ‘stepsPerInterval’ data frame created in a prior step.
@@ -164,7 +139,7 @@ for (i in 1:nrow(activity)){
 head(meandata,10)
 ```
 
-4. Make a histogram of the total number of steps taken each day and Calculate and        report the mean and median total number of steps taken per day. Do these values       differ from the estimates from the first part of the assignment? What is the impact    of imputing missing data on the estimates of the total daily number of steps?
+4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values       differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 ```{r, echo=TRUE}
 stepsPerDay <- meandata %>%
