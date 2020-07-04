@@ -71,7 +71,8 @@ median <- round(median(stepsPerDay$sumsteps),digits = 2)
 print(paste("The mean is: ", mean))
 print(paste("The median is: ", median))
 ```
-
+`[1] "The mean is:  9354.23"                                   
+ [1] "The median is:  10395"`   
 
 
 ## What is the average daily activity pattern?
@@ -103,6 +104,8 @@ plot(stepsPerInterval$meansteps ~ stepsPerInterval$interval,
 print(paste("Interval containing the most steps on average:",stepsPerInterval$interval[which.max(stepsPerInterval$meansteps)]))
 print(paste("Average steps for that interval:",round(max(stepsPerInterval$meansteps),digits=2)))
 ```
+`[1] "Interval containing the most steps on average: 835"           
+ [1] "Average steps for that interval: 206.17"`  
 
 
 
@@ -113,6 +116,8 @@ print(paste("Average steps for that interval:",round(max(stepsPerInterval$meanst
 ```{r, echo=TRUE}
 print(paste("The total number of rows with NA is: ",sum(is.na(activity$steps))))
 ```
+`[1] "The total number of rows with NA is:  2304"`  
+
 
 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the            mean/median for that day, or the mean for that 5-minute interval, etc.
 
@@ -166,6 +171,8 @@ medianPostNA <- round(median(stepsPerDay$sumsteps), digits = 2)
 
 print(paste("The mean is: ", mean(meanPostNA)))
 ```
+`[1] "The mean is:  10766.19"`    
+
 Once logic is applied to imput missing values it allows for all detail records to be included increasing both the mean and median. The mean increases from 9354.23 to 10766.19. It is important to note that NA values in the first part of the project were ignored (na.rm = TRUE). Once averages were applied to the missing values the overall mean increased.
 
 ```{r,echo=TRUE}
@@ -174,6 +181,11 @@ rownames(NACompare) <- c("Pre NA Transformation", "Post NA Transformation")
 print(NACompare)
 ```
 
+                                  mean     |      median
+                                  <dbl>    |      <dbl>
+Pre NA Transformation   	9354.23    |    10395.00     
+Post NA Transformation	        10766.19   |	10766.19
+2 rows
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
