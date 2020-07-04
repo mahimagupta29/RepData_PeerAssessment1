@@ -38,6 +38,16 @@ activity <- read.csv("./data/activity.csv")
 activity$date <- as.Date(activity$date)
 head(activity)
 ```
+       steps      date       interval
+       <int>     <date>        <int>
+1	NA	2012-10-01	0	
+2	NA	2012-10-01	5	
+3	NA	2012-10-01	10	
+4	NA	2012-10-01	15	
+5	NA	2012-10-01	20	
+6	NA	2012-10-01	25	
+6 rows
+
 
 ## What is mean total number of steps taken per day?
 
@@ -54,12 +64,28 @@ stepsPerDay <- activity %>%
 head(stepsPerDay,10)
 ```
 
+date           sumsteps
+<date>          <int>
+2012-10-01	0			
+2012-10-02	126			
+2012-10-03	11352			
+2012-10-04	12116			
+2012-10-05	13294			
+2012-10-06	15420			
+2012-10-07	11015			
+2012-10-08	0			
+2012-10-09	12811			
+2012-10-10	9900			
+1-10 of 10 rows
+
+
 2. Make a histogram of the total number of steps taken each day.
 
 ```{r, echo=TRUE}
 hist(stepsPerDay$sumsteps, main = "Histogram of Daily Steps", breaks = 20,
      col="cyan", xlab="Steps", ylim = c(0,12))
 ```
+
 
 3. Calculate and report the mean and median of the total number of steps taken per day.
 
@@ -84,6 +110,7 @@ stepsPerInterval <- activity %>%
 #Display first 10 rows of data
 head(stepsPerInterval,10)
 ```
+
 
 ```{r, echo=TRUE}
 plot(stepsPerInterval$meansteps ~ stepsPerInterval$interval,
