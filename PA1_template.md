@@ -282,8 +282,9 @@ print(NACompare)
 ```
                                   mean     |      median
                                   <dbl>    |      <dbl>
-Pre NA Transformation    |       	9354.23  |    10395.00     
-Post NA Transformation	  |     10766.19    |	10766.19
+----------------------------------------------------------
+Pre NA Transformation     |   	9354.23    |    10395.00     
+Post NA Transformation	  |     10766.19   |	10766.19
 2 rows
 ```
 
