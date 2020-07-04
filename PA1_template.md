@@ -60,7 +60,7 @@ head(stepsPerDay,10)
 hist(stepsPerDay$sumsteps, main = "Histogram of Daily Steps", breaks = 20,
      col="cyan", xlab="Steps", ylim = c(0,12))
 ```
-
+![image 1](https://github.com/mahimagupta29/RepData_PeerAssessment1/blob/master/figures/image%201.png)
 
 3. Calculate and report the mean and median of the total number of steps taken per day.
 
@@ -95,6 +95,7 @@ plot(stepsPerInterval$meansteps ~ stepsPerInterval$interval,
      ylab = "Average Number of Steps",
      main = "Steps By Time Interval")
 ```
+![image 2](https://github.com/mahimagupta29/RepData_PeerAssessment1/blob/master/figures/image%202.png)
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -157,6 +158,7 @@ Making Histogram
 hist(stepsPerDay$sumsteps, main = "Histogram of Daily Steps", 
      col="yellow", xlab="Steps", ylab = "Frequency",breaks = 20,ylim = c(0,20))
 ```
+![image3](https://github.com/mahimagupta29/RepData_PeerAssessment1/blob/master/figures/image%203.png)
 
 ```{r, echo=TRUE}
 meanPostNA <- round(mean(stepsPerDay$sumsteps), digits = 2)
@@ -212,6 +214,8 @@ g + geom_line() + facet_grid (day~.) +
         ggtitle("Average Number of Steps - Weekday vs. Weekend") + 
         theme(plot.title = element_text(hjust = 0.5))
 ```
+![image 4](https://github.com/mahimagupta29/RepData_PeerAssessment1/blob/master/figures/image%204.png)
+
 
 The chart shows slight differences in the step patterns throughout the average daily intervals. 
 - For weekdays there is a larger spike in the morning intervals that could indicate commuters on their way to work. 
